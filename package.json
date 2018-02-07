@@ -1,0 +1,18 @@
+{
+  "name": "reddit-wallpaper",
+  "version": "1.0.0",
+  "description": "Gets random wallpaper from specified subreddit(s) and changes it to your desktop",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "parse-domain": "^2.0.0",
+    "request-image-size": "^2.1.0",
+    "request-promise": "^4.2.2",
+    "url": "^0.11.0",
+    "wallpaper": "^2.6.0"
+  }
+}
