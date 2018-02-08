@@ -30,8 +30,8 @@ const config = {
   // Scaling method for the wallpaper. Options: fill, fit, stretch, center
   scale: 'fill',
 
-  // How often to change wallpaper (in minutes)
-  interval: 60, // Every hour
+  // How often to change wallpaper (in milliseconds)
+  interval: 60 * 1000 * 60, // Every hour
 }
 
 module.exports = config;

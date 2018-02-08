@@ -20,52 +20,44 @@ function download(uri, filename, callback) {
   });
 }
 
-function changeWallpaper() {
-  request(buildUrl())
-  .then((htmlString) => {
-    const json = JSON.parse(htmlString);
+async function changeWallpaper() {
+  const htmlString = await request(buildUrl());
+  const json = JSON.parse(htmlString);
 
-    let images = json.data.children
-      .map(submission => {
-        const width  = submission.data.preview.images[0].source.width;
-        const height = submission.data.preview.images[0].source.height;
+  const images = json.data.children.map(submission => {
+    const width  = submission.data.preview.images[0].source.width;
+    const height = submission.data.preview.images[0].source.height;
 
-        if (submission.data.post_hint === 'image' && width >= config.minSize.width && height >= config.minSize.height && config.aspectRatios.includes(ratio(width, height))) {
-          return {
-            url:       submission.data.url,
-            ext:       submission.data.url.split('.').pop(),
-            domain:    submission.data.domain,
-            subreddit: submission.data.subreddit,
-            width:     width,
-            height:    height,
-          };
-        }
-      })
-      .filter(submission => {
-        if (submission) {
-          return config.domains.includes(submission.domain);
-        }
-      });
-
-    // No images found from that subreddit, let's try again.
-    if (images.length === 0) {
-      changeWallpaper();
-      return;
+    if (submission.data.post_hint === 'image' && width >= config.minSize.width && height >= config.minSize.height && config.aspectRatios.includes(ratio(width, height))) {
+      return {
+        url:       submission.data.url,
+        ext:       submission.data.url.split('.').pop(),
+        domain:    submission.data.domain,
+        subreddit: submission.data.subreddit,
+        width:     width,
+        height:    height,
+      };
     }
+  }).filter(submission => {
+    if (submission) {
+      return config.domains.includes(submission.domain);
+    }
+  });
 
-    const randomImage = pickRandom(images);
-    const targetPath = path.join('wallpapers', (shortid.generate() + '.' + randomImage.ext));
-      
-    download(randomImage.url, targetPath, () => {
-      wallpaper.set(targetPath, { scale: config.scale }).then(() => {
-        console.log(`Wallpaper set to '${targetPath}' from subreddit '/r/${randomImage.subreddit}'`)
-      });
+  if (images.length === 0) {
+    changeWallpaper();
+    return;
+  }
+
+  const randomImage = pickRandom(images);
+  const targetPath = path.join('wallpapers', (shortid.generate() + '.' + randomImage.ext));
+    
+  download(randomImage.url, targetPath, () => {
+    wallpaper.set(targetPath, { scale: config.scale }).then(() => {
+      console.log(`Wallpaper set to '${targetPath}' from subreddit '/r/${randomImage.subreddit}'`)
     });
-  })
-  .catch((err) => {
-    throw err;
   });
 }
 
 changeWallpaper();
-setInterval(changeWallpaper, config.interval * 1000 * 60);
+setInterval(changeWallpaper, config.interval);
