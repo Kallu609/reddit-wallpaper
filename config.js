@@ -16,12 +16,12 @@ const config = {
   from: 'year',
 
   // Limit of posts to get (Your wallpaper will be chosen randomly)
-  limit: 15,
+  limit: 50,
 
   // Minimum size of image
   minSize: {
-    height: 1080,
-    width: 0
+    height: 1920,
+    width: 1080
   },
   
   // Allowed aspect ratios
