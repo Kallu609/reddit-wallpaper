@@ -1,5 +1,8 @@
 # reddit-wallpaper
-Gets random wallpaper from specified subreddit(s) and changes it to your desktop
+
+Gets random wallpaper from specified subreddit(s) and changes it to your desktop.
+
+Works on Windows, macOS and Linux. :)
 
 ## Prerequisites
 
