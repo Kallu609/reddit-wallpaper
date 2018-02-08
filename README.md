@@ -4,7 +4,6 @@ Gets random wallpaper from specified subreddit(s) and changes it to your desktop
 ## Prerequisites
 
 * Node.js
-* `ts-node`
 
 ## Installation and usage
 
