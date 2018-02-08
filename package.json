@@ -9,10 +9,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "aspect-ratio": "^2.0.2",
     "parse-domain": "^2.0.0",
-    "request-image-size": "^2.1.0",
+    "request": "^2.83.0",
     "request-promise": "^4.2.2",
-    "url": "^0.11.0",
+    "shortid": "^2.2.8",
+    "unique-file-name": "^0.1.7",
     "wallpaper": "^2.6.0"
   }
 }
